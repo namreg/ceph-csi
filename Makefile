@@ -36,7 +36,7 @@ static-check:
 
 rbdplugin:
 	if [ ! -d ./vendor ]; then dep ensure -vendor-only; fi
-	CGO_ENABLED=0 GOOS=linux go build -a -ldflags '-extldflags "-static"' -o  _output/rbdplugin ./cmd/rbd
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -tags netgo -ldflags '-w' -o  _output/rbdplugin ./cmd/rbd
 
 image-rbdplugin: rbdplugin
 	cp _output/rbdplugin  deploy/rbd/docker
